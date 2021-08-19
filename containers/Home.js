@@ -26,9 +26,9 @@ export const Home = () => (
     </Text>
     <View style={styles.row}>
       <View style={styles.col}>
-        <Text style={styles.item}> Corona provisoria </Text>
-        <Text style={styles.item}> Corona definitiva </Text>
-        <Text style={styles.item}> Placa miorrelajante</Text>
+        <Text style={styles.item}> Extracción dentaria </Text>
+        <Text style={styles.item}> Recuperación dentaria </Text>
+        <Text style={styles.item}> Colocación dentaria </Text>
       </View>
     </View>
   </View>
