@@ -3,6 +3,24 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { CheckBox, Button } from "react-native-elements";
 
+const BASE_URL = "";
+
+async function postData(url = BASE_URL, data = {}) {
+  const response = await fetch(url, {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify(data),
+  });
+  return response.json();
+}
+
 export const SistemaExperto = ({ navigation }) => {
   const [fracturada, setFracturada] = useState(false);
   const [destruida, setDestruida] = useState(false);
@@ -11,6 +29,23 @@ export const SistemaExperto = ({ navigation }) => {
   const [superNumerarios, setSuperNumerarios] = useState(false);
   const [malUbicada, setMalUbicada] = useState(false);
   const [realizada, setRealizada] = useState(false);
+
+  const [respuesta, setRespuesta] = useState("");
+
+  const getResultados = () => {
+    postData(BASE_URL + "/consulta", {
+      fracturada: fracturada,
+      destruida: destruida,
+      cariada: cariada,
+      raizRecuperable: raizRecuperable,
+      superNumerarios: superNumerarios,
+      malUbicada: malUbicada,
+      realizada: realizada,
+    }).then((data) => {
+      console.log(data);
+      setRespuesta(data);
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -68,7 +103,12 @@ export const SistemaExperto = ({ navigation }) => {
       <View style={styles.button}>
         <Button
           title="Obtener resultado"
-          onPress={() => navigation.navigate("Resultados")}
+          onPress={async () => {
+            await getResultados();
+            navigation.navigate("Resultados", {
+              respuesta: respuesta,
+            });
+          }}
         />
       </View>
     </View>
