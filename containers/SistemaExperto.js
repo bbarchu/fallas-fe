@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { CheckBox, Button } from "react-native-elements";
 
-export const SistemaExperto = () => {
+export const SistemaExperto = ({ navigation }) => {
   const [corona, setCorona] = useState("ok");
   const [raiz, setRaiz] = useState("ok");
   const [casos, setCasos] = useState("ok");
@@ -93,7 +93,10 @@ export const SistemaExperto = () => {
         />
       </View>
       <View style={styles.button}>
-        <Button title="Obtener resultado" />
+        <Button
+          title="Obtener resultado"
+          onPress={() => navigation.navigate("Resultados")}
+        />
       </View>
     </View>
   );

@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Home } from "./containers/Home";
 import { SistemaExperto } from "./containers/SistemaExperto";
+import { Resultados } from "./containers/Resultados";
 
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
@@ -15,6 +16,7 @@ const TabTop = () => {
     <Tab.Navigator>
       <Tab.Screen name="Introducción" component={Home} />
       <Tab.Screen name="Sistema Experto" component={SistemaExperto} />
+      <Tab.Screen name="Resultados" component={Resultados} />
     </Tab.Navigator>
   );
 };
