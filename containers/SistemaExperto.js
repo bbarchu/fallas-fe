@@ -4,92 +4,65 @@ import { StyleSheet, Text, View } from "react-native";
 import { CheckBox, Button } from "react-native-elements";
 
 export const SistemaExperto = ({ navigation }) => {
-  const [corona, setCorona] = useState("ok");
-  const [raiz, setRaiz] = useState("ok");
-  const [casos, setCasos] = useState("ok");
-  const [piezaDentaria, setPiezaDentaria] = useState("ok");
-  const [extraccionPrevia, setExtraccionPrevia] = useState("no");
+  const [fracturada, setFracturada] = useState(false);
+  const [destruida, setDestruida] = useState(false);
+  const [cariada, setCariada] = useState(false);
+  const [raizRecuperable, setRaizRecuperable] = useState(false);
+  const [superNumerarios, setSuperNumerarios] = useState(false);
+  const [malUbicada, setMalUbicada] = useState(false);
+  const [realizada, setRealizada] = useState(false);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Corona</Text>
       <View style={styles.row}>
         <CheckBox
-          title="Ok"
-          checked={corona == "ok"}
-          onPress={() => setCorona("ok")}
-        />
-        <CheckBox
           title="fracturada"
-          checked={corona == "fracturada"}
-          onPress={() => setCorona("fracturada")}
+          checked={fracturada}
+          onPress={() => setFracturada(!fracturada)}
         />
         <CheckBox
           title="cariada"
-          checked={corona == "cariada"}
-          onPress={() => setCorona("cariada")}
+          checked={cariada}
+          onPress={() => setCariada(!cariada)}
         />
 
         <CheckBox
           title="destruida"
-          checked={corona == "destruida"}
-          onPress={() => setCorona("destruida")}
+          checked={destruida}
+          onPress={() => setDestruida(!destruida)}
         />
       </View>
       <Text style={styles.title}>Raiz</Text>
       <View style={styles.row}>
         <CheckBox
-          title="Ok"
-          checked={raiz == "ok"}
-          onPress={() => setRaiz("ok")}
-        />
-
-        <CheckBox
-          title="No se puede recuperar"
-          checked={raiz == "destruida"}
-          onPress={() => setRaiz("destruida")}
+          title="Es recuperable"
+          checked={raizRecuperable}
+          onPress={() => setRaizRecuperable(!raizRecuperable)}
         />
       </View>
       <Text style={styles.title}>Casos</Text>
       <View style={styles.row}>
         <CheckBox
-          title="Ningun caso extraordinario"
-          checked={casos == "ok"}
-          onPress={() => setCasos("ok")}
-        />
-
-        <CheckBox
           title="Dientes supernumerarios"
-          checked={casos == "supernumerarios"}
-          onPress={() => setCasos("supernumerarios")}
+          checked={superNumerarios}
+          onPress={() => setSuperNumerarios(!superNumerarios)}
         />
       </View>
       <Text style={styles.title}>Piezas dentaria</Text>
       <View style={styles.row}>
         <CheckBox
-          title="Ok"
-          checked={piezaDentaria == "ok"}
-          onPress={() => setPiezaDentaria("ok")}
-        />
-
-        <CheckBox
           title="Mal ubicada"
-          checked={piezaDentaria == "inconveniente"}
-          onPress={() => setPiezaDentaria("inconveniente")}
+          checked={malUbicada}
+          onPress={() => setMalUbicada(!malUbicada)}
         />
       </View>
       <Text style={styles.title}>Extracción dentaria previa</Text>
       <View style={styles.row}>
         <CheckBox
-          title="No hubo"
-          checked={extraccionPrevia == "no"}
-          onPress={() => setExtraccionPrevia("no")}
-        />
-
-        <CheckBox
-          title="Si hubo"
-          checked={extraccionPrevia == "si"}
-          onPress={() => setExtraccionPrevia("si")}
+          title="Se realizo una extracción dentaria previa"
+          checked={realizada}
+          onPress={() => setRealizada(!realizada)}
         />
       </View>
       <View style={styles.button}>
