@@ -3,8 +3,15 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { CheckBox, Button } from "react-native-elements";
 
-export const Resultados = () => {
-  return <View style={styles.container}></View>;
+export const Resultados = (props) => {
+  const resultado = props?.route?.params?.respuesta?.["Tratamiento"];
+  console.log(resultado, "resultados");
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>{resultado ?? ""}</Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

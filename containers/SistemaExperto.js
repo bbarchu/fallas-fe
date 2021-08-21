@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { CheckBox, Button } from "react-native-elements";
 
-const BASE_URL = "";
+const BASE_URL = "http://localhost:8000/";
 
 async function postData(url = BASE_URL, data = {}) {
   const response = await fetch(url, {
@@ -33,7 +33,7 @@ export const SistemaExperto = ({ navigation }) => {
   const [respuesta, setRespuesta] = useState("");
 
   const getResultados = () => {
-    postData(BASE_URL + "/consulta", {
+    postData(BASE_URL + "consulta", {
       fracturada: fracturada,
       destruida: destruida,
       cariada: cariada,
@@ -42,8 +42,11 @@ export const SistemaExperto = ({ navigation }) => {
       malUbicada: malUbicada,
       realizada: realizada,
     }).then((data) => {
-      console.log(data);
+      console.log(data, "SE");
       setRespuesta(data);
+      navigation.navigate("Resultados", {
+        respuesta: data,
+      });
     });
   };
 
@@ -101,15 +104,7 @@ export const SistemaExperto = ({ navigation }) => {
         />
       </View>
       <View style={styles.button}>
-        <Button
-          title="Obtener resultado"
-          onPress={async () => {
-            await getResultados();
-            navigation.navigate("Resultados", {
-              respuesta: respuesta,
-            });
-          }}
-        />
+        <Button title="Obtener resultado" onPress={() => getResultados()} />
       </View>
     </View>
   );
