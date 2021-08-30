@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { CheckBox, Button } from "react-native-elements";
 
 const BASE_URL = "http://localhost:8000/";
@@ -23,35 +23,44 @@ async function postData(url = BASE_URL, data = {}) {
 
 export const SistemaExperto = ({ navigation }) => {
   const [fracturada, setFracturada] = useState(false);
-  const [destruida, setDestruida] = useState(false);
-  const [cariada, setCariada] = useState(false);
+  const [esmalteCariado, setEsmalteCariado] = useState(false);
+  const [dentinaCariada, setDentinaCariada] = useState(false);
   const [raizRecuperable, setRaizRecuperable] = useState(false);
   const [superNumerarios, setSuperNumerarios] = useState(false);
   const [malUbicada, setMalUbicada] = useState(false);
-  const [realizada, setRealizada] = useState(false);
-
-  const [respuesta, setRespuesta] = useState("");
+  const [pulpaCariada, setPulpaCariada] = useState(false);
+  const [enciaInfectada, setEnciaInfectada] = useState(false);
 
   const getResultados = () => {
     postData(BASE_URL + "consulta", {
-      fracturada: fracturada,
-      destruida: destruida,
-      cariada: cariada,
-      raizRecuperable: raizRecuperable,
-      superNumerarios: superNumerarios,
-      malUbicada: malUbicada,
-      realizada: realizada,
+      coronaFracturada: fracturada ? "si" : "no",
+      esmalteCariado: esmalteCariado ? "si" : "no",
+      dentinaCariada: dentinaCariada ? "si" : "no",
+      raizRecuperable: raizRecuperable ? "si" : "no",
+      casoSupernumerario: superNumerarios ? "si" : "no",
+      piezaDentariaMalUbicada: malUbicada ? "si" : "no",
+      pulpaCariada: pulpaCariada ? "si" : "no",
+      enciaInfectada: enciaInfectada ? "si" : "no",
     }).then((data) => {
-      console.log(data, "SE");
-      setRespuesta(data);
       navigation.navigate("Resultados", {
         respuesta: data,
       });
     });
   };
 
+  const clear = () => {
+    setFracturada(false);
+    setEsmalteCariado(false);
+    setDentinaCariada(false);
+    setRaizRecuperable(false);
+    setSuperNumerarios(false);
+    setMalUbicada(false);
+    setPulpaCariada(false);
+    setEnciaInfectada(false);
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>Corona</Text>
       <View style={styles.row}>
         <CheckBox
@@ -59,22 +68,27 @@ export const SistemaExperto = ({ navigation }) => {
           checked={fracturada}
           onPress={() => setFracturada(!fracturada)}
         />
+      </View>
+      <Text style={styles.title}>Esmalte</Text>
+      <View style={styles.row}>
+        <CheckBox
+          title="cariado"
+          checked={esmalteCariado}
+          onPress={() => setEsmalteCariado(!esmalteCariado)}
+        />
+      </View>
+      <Text style={styles.title}>Dentina</Text>
+      <View style={styles.row}>
         <CheckBox
           title="cariada"
-          checked={cariada}
-          onPress={() => setCariada(!cariada)}
-        />
-
-        <CheckBox
-          title="destruida"
-          checked={destruida}
-          onPress={() => setDestruida(!destruida)}
+          checked={dentinaCariada}
+          onPress={() => setDentinaCariada(!dentinaCariada)}
         />
       </View>
       <Text style={styles.title}>Raiz</Text>
       <View style={styles.row}>
         <CheckBox
-          title="Es recuperable"
+          title="es recuperable"
           checked={raizRecuperable}
           onPress={() => setRaizRecuperable(!raizRecuperable)}
         />
@@ -82,31 +96,46 @@ export const SistemaExperto = ({ navigation }) => {
       <Text style={styles.title}>Casos</Text>
       <View style={styles.row}>
         <CheckBox
-          title="Dientes supernumerarios"
+          title="dientes supernumerarios"
           checked={superNumerarios}
           onPress={() => setSuperNumerarios(!superNumerarios)}
         />
       </View>
-      <Text style={styles.title}>Piezas dentaria</Text>
+      <Text style={styles.title}>Pieza dentaria</Text>
       <View style={styles.row}>
         <CheckBox
-          title="Mal ubicada"
+          title="mal ubicada"
           checked={malUbicada}
           onPress={() => setMalUbicada(!malUbicada)}
         />
       </View>
-      <Text style={styles.title}>Extracción dentaria previa</Text>
+      <Text style={styles.title}>Pulpa</Text>
       <View style={styles.row}>
         <CheckBox
-          title="Se realizo una extracción dentaria previa"
-          checked={realizada}
-          onPress={() => setRealizada(!realizada)}
+          title="cariada"
+          checked={pulpaCariada}
+          onPress={() => setPulpaCariada(!pulpaCariada)}
+        />
+      </View>
+      <Text style={styles.title}>Encia </Text>
+      <View style={styles.row}>
+        <CheckBox
+          title="infectada"
+          checked={enciaInfectada}
+          onPress={() => setEnciaInfectada(!enciaInfectada)}
         />
       </View>
       <View style={styles.button}>
         <Button title="Obtener resultado" onPress={() => getResultados()} />
       </View>
-    </View>
+      <View style={styles.button}>
+        <Button
+          buttonStyle={{ backgroundColor: "orange" }}
+          title="Limpiar"
+          onPress={() => clear()}
+        />
+      </View>
+    </ScrollView>
   );
 };
 
@@ -125,5 +154,11 @@ const styles = StyleSheet.create({
     width: "50%",
     alignSelf: "center",
     padding: 10,
+  },
+  buttonClear: {
+    width: "50%",
+    alignSelf: "center",
+    padding: 10,
+    color: "red",
   },
 });

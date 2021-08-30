@@ -28,7 +28,7 @@ export const Home = () => (
       <View style={styles.col}>
         <Text style={styles.item}> Extracción dentaria </Text>
         <Text style={styles.item}> Recuperación dentaria </Text>
-        <Text style={styles.item}> Colocación dentaria </Text>
+        <Text style={styles.item}> Tratamiento de conducto </Text>
       </View>
     </View>
   </View>
